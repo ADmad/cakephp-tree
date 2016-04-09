@@ -1,4 +1,4 @@
-# TreePlus
+# Tree
 
 [![Build Status](https://img.shields.io/travis/ADmad/cakephp-tree/master.svg?style=flat-square)](https://travis-ci.org/ADmad/cakephp-tree)
 [![Coverage](https://img.shields.io/codecov/c/github/ADmad/cakephp-tree.svg?style=flat-square)](https://codecov.io/github/ADmad/cakephp-tree)
