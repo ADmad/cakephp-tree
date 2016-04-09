@@ -1,0 +1,43 @@
+{
+    "name": "admad/cakephp-tree",
+    "description": "CakPHP plugin for working with tree structures.",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp",
+        "ADmad",
+        "tree"
+    ],
+    "homepage": "https://github.com/ADmad/cakephp-tree",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ADmad",
+            "homepage": "https://github.com/ADmad",
+            "role": "Author"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ADmad/cakephp-tree/issues",
+        "source": "https://github.com/ADmad/cakephp-tree"
+    },
+    "require": {
+    },
+    "require-dev": {
+        "cakephp/cakephp": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ADmad\\Tree\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ADmad\\Tree\\Test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
