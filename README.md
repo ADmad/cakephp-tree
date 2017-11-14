@@ -5,14 +5,12 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/ADmad/cakephp-tree.svg?style=flat-square)](https://packagist.org/packages/ADmad/cakephp-tree)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-{{@TODO description}}
-
 ## Install
 
 Using [Composer][composer]:
 
 ```
-composer require admad/cakephp-tree:1.0.x-dev
+composer require admad/cakephp-tree
 ```
 
 You then need to load the plugin. You can use the shell command:
@@ -26,10 +24,6 @@ or by manually adding statement shown below to your app's `config/bootstrap.php`
 ```php
 Plugin::load('ADmad/Tree');
 ```
-
-## Usage
-
-{{@TODO documentation}}
 
 ## License
 
