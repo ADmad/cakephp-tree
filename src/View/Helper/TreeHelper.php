@@ -339,6 +339,7 @@ class TreeHelper extends Helper
                 $return .= "\r\n";
             }
         }
+        
         return $return;
     }
 
@@ -444,6 +445,7 @@ class TreeHelper extends Helper
                 $_splitCounter++;
                 if ($type && ($_splitCounter % $_splitCount) === 0 && !$lastChild) {
                     unset($this->_config['callback']);
+                    
                     return '</' . $type . '><' . $type . '>';
                 }
             }
@@ -501,6 +503,7 @@ class TreeHelper extends Helper
             }
             $attributes[$type] = $type . '="' . implode(' ', $attributes[$type]) . '"';
         }
+        
         return ' ' . implode(' ', $attributes);
     }
 
