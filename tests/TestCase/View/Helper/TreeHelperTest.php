@@ -514,6 +514,7 @@ TEXT;
         if (!empty($data['data']['hide'])) {
             return;
         }
+        
         return $data['data']['name'] . ($data['activePathElement'] ? ' (active)' : '');
     }
 
@@ -525,6 +526,7 @@ TEXT;
         if ($data['depth'] == 0 && $data['isSibling']) {
             return $data['data']['name'] . ' (sibling)';
         }
+        
         return $data['data']['name'] . ($data['activePathElement'] ? ' (active)' : '');
     }
 
