@@ -112,7 +112,7 @@ class TreeHelper extends Helper
      *    'splitCount' => the number of "parallel" types. defaults to null (disabled) set the splitCount,
      *        and optionally set the splitDepth to get parallel lists
      *
-     * @param array|\Cake\Orm\Query $data Data to loop over
+     * @param array|\Cake\Datasource\QueryInterface|\Cake\ORM\ResultSet $data Data to loop over
      * @param array $config Config
      * @return string HTML representation of the passed data
      * @throws \Exception
@@ -339,6 +339,7 @@ class TreeHelper extends Helper
                 $return .= "\r\n";
             }
         }
+
         return $return;
     }
 
@@ -444,6 +445,7 @@ class TreeHelper extends Helper
                 $_splitCounter++;
                 if ($type && ($_splitCounter % $_splitCount) === 0 && !$lastChild) {
                     unset($this->_config['callback']);
+
                     return '</' . $type . '><' . $type . '>';
                 }
             }
@@ -501,6 +503,7 @@ class TreeHelper extends Helper
             }
             $attributes[$type] = $type . '="' . implode(' ', $attributes[$type]) . '"';
         }
+
         return ' ' . implode(' ', $attributes);
     }
 

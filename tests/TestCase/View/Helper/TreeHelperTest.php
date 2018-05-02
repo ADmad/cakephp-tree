@@ -4,7 +4,6 @@ namespace ADmad\Tree\TestCase\View\Helper;
 use ADmad\Tree\View\Helper\TreeHelper;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -16,7 +15,7 @@ class TreeHelperTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'plugin.ADmad\Tree.AfterTrees'
+        'plugin.ADmad\Tree.AfterTrees',
     ];
 
     /**
@@ -49,7 +48,7 @@ class TreeHelperTest extends TestCase
 
         //$this->Table->truncate();
         $connection = ConnectionManager::get('test');
-        $sql = $this->Table->schema()->truncateSql($connection);
+        $sql = $this->Table->getSchema()->truncateSql($connection);
         foreach ($sql as $snippet) {
             $connection->execute($snippet);
         }
@@ -514,6 +513,7 @@ TEXT;
         if (!empty($data['data']['hide'])) {
             return;
         }
+
         return $data['data']['name'] . ($data['activePathElement'] ? ' (active)' : '');
     }
 
@@ -525,6 +525,7 @@ TEXT;
         if ($data['depth'] == 0 && $data['isSibling']) {
             return $data['data']['name'] . ' (sibling)';
         }
+
         return $data['data']['name'] . ($data['activePathElement'] ? ' (active)' : '');
     }
 
