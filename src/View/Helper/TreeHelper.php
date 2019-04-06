@@ -392,8 +392,12 @@ class TreeHelper extends Helper
      * @param string $previousOrNext Previous or next
      * @return void
      */
-    public function addTypeAttribute(string $id = '', string $key = '', $value = null, string $previousOrNext = 'next'): void
-    {
+    public function addTypeAttribute(
+        string $id = '',
+        string $key = '',
+        $value = null,
+        string $previousOrNext = 'next'
+    ): void {
         $var = '_typeAttributes';
         $firstChild = $this->_config['firstChild'] ?? true;
         if ($previousOrNext === 'next' && $firstChild) {
