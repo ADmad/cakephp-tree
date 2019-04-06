@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace ADmad\Tree\TestCase\View\Helper;
 
 use ADmad\Tree\View\Helper\TreeHelper;
@@ -10,7 +11,6 @@ use Cake\View\View;
 
 class TreeHelperTest extends TestCase
 {
-
     /**
      * @var array
      */
@@ -21,7 +21,7 @@ class TreeHelperTest extends TestCase
     /**
      * @var \Cake\ORM\Table
      */
-    public $Table;
+    protected $Table;
 
     /**
      * Initial Tree
@@ -84,7 +84,7 @@ class TreeHelperTest extends TestCase
 
     public function testObject()
     {
-        $this->assertInstanceOf('ADmad\Tree\View\Helper\TreeHelper', $this->Tree);
+        $this->assertInstanceOf(TreeHelper::class, $this->Tree);
     }
 
     /**
