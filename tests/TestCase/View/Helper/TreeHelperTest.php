@@ -174,8 +174,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["    ", "\r", "\n"], '', $output);
-        $expected = str_replace(["    ", "\r", "\n"], '', $expected);
+        $output = str_replace(['    ', "\r", "\n"], '', $output);
+        $expected = str_replace(['    ', "\r", "\n"], '', $expected);
         $this->assertTextEquals($expected, $output);
     }
 
@@ -399,8 +399,6 @@ TEXT;
      */
     public function testGenerateWithAutoPathAndHideUnrelated()
     {
-        $this->skipIf(true, 'FIXME');
-
         $data = [
             ['name' => 'Two-SubB', 'parent_id' => 2],
             ['name' => 'Two-SubC', 'parent_id' => 2],
@@ -438,8 +436,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["\t"], '', $output);
-        $expected = str_replace(["\t"], '', $expected);
+        $output = str_replace(['    '], '', $output);
+        $expected = str_replace(['    '], '', $expected);
         $this->assertTextEquals($expected, $output);
     }
 
@@ -460,8 +458,6 @@ TEXT;
      */
     public function testGenerateWithAutoPathAndHideUnrelatedAndSiblings()
     {
-        $this->skipIf(true, 'FIXME');
-
         $data = [
             ['name' => 'Two-SubB', 'parent_id' => 2],
             ['name' => 'Two-SubC', 'parent_id' => 2],
@@ -501,8 +497,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["\t", "\r", "\n"], '', $output);
-        $expected = str_replace(["\t", "\r", "\n"], '', $expected);
+        $output = str_replace(['    ', "\r", "\n"], '', $output);
+        $expected = str_replace(['    ', "\r", "\n"], '', $expected);
         //debug($output);
         //debug($expected);
         $this->assertTextEquals($expected, $output);

@@ -536,7 +536,7 @@ class TreeHelper extends Helper
                 throw new Exception('Only works with threaded (nested children) results');
             }
 
-            if (!empty($path[$level]) && $subTree['id'] == $path[$level]['id']) {
+            if (!empty($path[$level]) && $subTree['id'] == $path[$level]) {
                 $subTree['show'] = 1;
                 $siblingIsActive = true;
             }
