@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 /**
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.

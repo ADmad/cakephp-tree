@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace ADmad\Tree\TestCase\View\Helper;
 
 use ADmad\Tree\View\Helper\TreeHelper;
