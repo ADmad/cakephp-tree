@@ -13,7 +13,7 @@ Using [Composer][composer]:
 composer require admad/cakephp-tree
 ```
 
-You then need to load the plugin. You can use the shell command:
+You then need to load the plugin. You can use the CLI command:
 
 ```
 bin/cake plugin load ADmad/Tree
@@ -21,7 +21,7 @@ bin/cake plugin load ADmad/Tree
 
 ## License
 
-Copyright (c) 2019, ADmad and licensed under [The MIT License][mit].
+Copyright (c) 2016 - Present, ADmad and licensed under [The MIT License][mit].
 
 [composer]:http://getcomposer.org
 [mit]:http://www.opensource.org/licenses/mit-license.php
