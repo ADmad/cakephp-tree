@@ -154,6 +154,7 @@ class TreeHelper extends Helper
         if ($hideUnrelated === true || is_numeric($hideUnrelated)) {
             $this->_markUnrelatedAsHidden($data, $treePath);
         } elseif ($hideUnrelated && is_callable($hideUnrelated)) {
+            /** @psalm-suppress PossiblyUndefinedVariable */
             call_user_func($hideUnrelated, $data, $treePath);
         }
 
@@ -252,6 +253,7 @@ class TreeHelper extends Helper
             }
 
             $this->_config = $elementData + $this->_config;
+            /** @psalm-suppress InvalidArrayOffset */
             if ($this->_config['fullSettings']) {
                 $elementData = $this->_config;
             }
@@ -499,13 +501,20 @@ class TreeHelper extends Helper
         foreach ($attributes as $type => $values) {
             foreach ($values as $key => $val) {
                 if (is_array($val)) {
+                    /** @psalm-suppress PossiblyInvalidArrayOffset */
                     $attributes[$type][$key] = '';
                     foreach ($val as $vKey => $v) {
+                        /**
+                         * @psalm-suppress InvalidArrayOffset
+                         * @psalm-suppress PossiblyInvalidArrayOffset
+                         */
                         $attributes[$type][$key][$vKey] .= $vKey . ':' . $v;
                     }
+                    /** @psalm-suppress PossiblyInvalidArrayOffset */
                     $attributes[$type][$key] = implode(';', $attributes[$type][$key]);
                 }
                 if (is_string($key)) {
+                    /** @psalm-suppress PossiblyInvalidArrayOffset */
                     $attributes[$type][$key] = $key . ':' . $val . ';';
                 }
             }
