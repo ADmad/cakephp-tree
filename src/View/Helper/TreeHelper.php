@@ -158,6 +158,7 @@ class TreeHelper extends Helper
             call_user_func($hideUnrelated, $data, $treePath);
         }
 
+        // phpcs:ignore
         /** @var array<int, mixed> $data */
         foreach ($data as $i => &$result) {
             /* Allow 2d data arrays */
@@ -212,10 +213,10 @@ class TreeHelper extends Helper
                         $hasVisibleChildren = true;
                     }
                 }
-                if (!isset($data[$i - 1]) || ($data[$i - 1][$left] == ($row[$left] - 1))) {
+                if (!isset($data[$i - 1]) || ($data[$i - 1][$left] == $row[$left] - 1)) {
                     $firstChild = true;
                 }
-                if (!isset($data[$i + 1]) || ($stack && $stack[count($stack) - 1] == ($row[$right] + 1))) {
+                if (!isset($data[$i + 1]) || ($stack && $stack[count($stack) - 1] == $row[$right] + 1)) {
                     $lastChild = true;
                 }
             } else {
