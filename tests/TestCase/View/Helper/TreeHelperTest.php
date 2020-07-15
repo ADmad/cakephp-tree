@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ADmad\Tree\TestCase\View\Helper;
 
 use ADmad\Tree\View\Helper\TreeHelper;
@@ -10,7 +12,6 @@ use Cake\View\View;
 
 class TreeHelperTest extends TestCase
 {
-
     /**
      * @var array
      */
@@ -21,7 +22,7 @@ class TreeHelperTest extends TestCase
     /**
      * @var \Cake\ORM\Table
      */
-    public $Table;
+    protected $Table;
 
     /**
      * Initial Tree
@@ -38,7 +39,7 @@ class TreeHelperTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -74,7 +75,7 @@ class TreeHelperTest extends TestCase
         }
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Table);
 
@@ -84,7 +85,7 @@ class TreeHelperTest extends TestCase
 
     public function testObject()
     {
-        $this->assertInstanceOf('ADmad\Tree\View\Helper\TreeHelper', $this->Tree);
+        $this->assertInstanceOf(TreeHelper::class, $this->Tree);
     }
 
     /**
@@ -174,8 +175,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["    ", "\r", "\n"], '', $output);
-        $expected = str_replace(["    ", "\r", "\n"], '', $expected);
+        $output = str_replace(['    ', "\r", "\n"], '', $output);
+        $expected = str_replace(['    ', "\r", "\n"], '', $expected);
         $this->assertTextEquals($expected, $output);
     }
 
@@ -399,8 +400,6 @@ TEXT;
      */
     public function testGenerateWithAutoPathAndHideUnrelated()
     {
-        $this->skipIf(true, 'FIXME');
-
         $data = [
             ['name' => 'Two-SubB', 'parent_id' => 2],
             ['name' => 'Two-SubC', 'parent_id' => 2],
@@ -438,8 +437,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["\t"], '', $output);
-        $expected = str_replace(["\t"], '', $expected);
+        $output = str_replace(['    '], '', $output);
+        $expected = str_replace(['    '], '', $expected);
         $this->assertTextEquals($expected, $output);
     }
 
@@ -460,8 +459,6 @@ TEXT;
      */
     public function testGenerateWithAutoPathAndHideUnrelatedAndSiblings()
     {
-        $this->skipIf(true, 'FIXME');
-
         $data = [
             ['name' => 'Two-SubB', 'parent_id' => 2],
             ['name' => 'Two-SubC', 'parent_id' => 2],
@@ -501,8 +498,8 @@ TEXT;
 </ul>
 
 TEXT;
-        $output = str_replace(["\t", "\r", "\n"], '', $output);
-        $expected = str_replace(["\t", "\r", "\n"], '', $expected);
+        $output = str_replace(['    ', "\r", "\n"], '', $output);
+        $expected = str_replace(['    ', "\r", "\n"], '', $expected);
         //debug($output);
         //debug($expected);
         $this->assertTextEquals($expected, $output);
