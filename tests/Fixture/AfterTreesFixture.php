@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace ADmad\Tree\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -9,25 +11,11 @@ use Cake\TestSuite\Fixture\TestFixture;
 class AfterTreesFixture extends TestFixture
 {
     /**
-     * fields property
-     *
-     * @var array
-     */
-    public $fields = [
-        'id' => ['type' => 'integer'],
-        'parent_id' => ['type' => 'integer'],
-        'lft' => ['type' => 'integer'],
-        'rght' => ['type' => 'integer'],
-        'name' => ['type' => 'string', 'length' => 255, 'null' => false],
-        '_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
-    ];
-
-    /**
      * records property
      *
      * @var array
      */
-    public $records = [
+    public array $records = [
         ['parent_id' => null, 'lft' => 1, 'rght' => 2, 'name' => 'One'],
         ['parent_id' => null, 'lft' => 3, 'rght' => 4, 'name' => 'Two'],
         ['parent_id' => null, 'lft' => 5, 'rght' => 6, 'name' => 'Three'],
