@@ -6,7 +6,7 @@ namespace ADmad\Tree\TestCase\View\Helper;
 use ADmad\Tree\View\Helper\TreeHelper;
 use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Entity;
-use Cake\ORM\TableRegistry;
+use Cake\ORM\Table;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
@@ -15,14 +15,13 @@ class TreeHelperTest extends TestCase
     /**
      * @var array
      */
-    public $fixtures = [
+    protected array $fixtures = [
         'plugin.ADmad\Tree.AfterTrees',
     ];
 
-    /**
-     * @var \Cake\ORM\Table
-     */
-    protected $Table;
+    protected Table $Table;
+
+    protected TreeHelper $Tree;
 
     /**
      * Initial Tree
@@ -44,7 +43,7 @@ class TreeHelperTest extends TestCase
         parent::setUp();
 
         $this->Tree = new TreeHelper(new View(null));
-        $this->Table = TableRegistry::get('AfterTrees');
+        $this->Table = $this->fetchTable('AfterTrees');
         $this->Table->addBehavior('Tree');
 
         //$this->Table->truncate();
@@ -78,8 +77,8 @@ class TreeHelperTest extends TestCase
     public function tearDown(): void
     {
         unset($this->Table);
+        $this->getTableLocator()->clear();
 
-         TableRegistry::clear();
         parent::tearDown();
     }
 
@@ -141,10 +140,11 @@ TEXT;
      */
     public function testGenerateWithFindAll()
     {
-        $tree = $this->Table->find('all', ['order' => ['lft' => 'ASC']])->toArray();
+        $tree = $this->Table->find()
+            ->orderByAsc('lft')
+            ->toArray();
 
         $output = $this->Tree->generate($tree);
-        //debug($output); return;
         $expected = <<<TEXT
 
 <ul>
@@ -313,10 +313,8 @@ TEXT;
     public function testGenerateWithAutoPath()
     {
         $tree = $this->Table->find('threaded')->toArray();
-        //debug($tree);
 
         $output = $this->Tree->generate($tree, ['autoPath' => [7, 10]]); // Two-SubA-1
-        //debug($output);
         $expected = <<<TEXT
 
 <ul>
@@ -411,11 +409,10 @@ TEXT;
 
         $tree = $this->Table->find('threaded')->toArray();
         $id = 6;
-        $nodes = $this->Table->find('path', ['for' => $id]);
+        $nodes = $this->Table->find('path', for: $id)->all();
         $path = $nodes->extract('id')->toArray();
 
         $output = $this->Tree->generate($tree, ['autoPath' => [6, 11], 'hideUnrelated' => true, 'treePath' => $path, 'callback' => [$this, 'myCallback']]); // Two-SubA
-        //debug($output);
 
         $expected = <<<TEXT
 
@@ -470,13 +467,12 @@ TEXT;
 
         $tree = $this->Table->find('threaded')->toArray();
         $id = 6;
-        $nodes = $this->Table->find('path', ['for' => $id]);
+        $nodes = $this->Table->find('path', for: $id)->all();
         $path = $nodes->extract('id')->toArray();
 
         $output = $this->Tree->generate($tree, [
             'autoPath' => [6, 11], 'hideUnrelated' => true, 'treePath' => $path,
             'callback' => [$this, 'myCallbackSiblings']]); // Two-SubA
-        //debug($output);
 
         $expected = <<<TEXT
 
@@ -500,8 +496,6 @@ TEXT;
 TEXT;
         $output = str_replace(['    ', "\r", "\n"], '', $output);
         $expected = str_replace(['    ', "\r", "\n"], '', $expected);
-        //debug($output);
-        //debug($expected);
         $this->assertTextEquals($expected, $output);
     }
 

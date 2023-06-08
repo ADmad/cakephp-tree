@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+  <file src="src/View/Helper/TreeHelper.php">
+    <InvalidArgument>
+      <code>$attributes</code>
+    </InvalidArgument>
+    <PossiblyInvalidArgument>
+      <code>$attributes[$type]</code>
+      <code>$attributes[$type][$key]</code>
+    </PossiblyInvalidArgument>
+    <PossiblyUndefinedArrayOffset>
+      <code>$content</code>
+    </PossiblyUndefinedArrayOffset>
+    <ReferenceReusedFromConfusingScope>
+      <code>$row</code>
+    </ReferenceReusedFromConfusingScope>
+    <UnsupportedReferenceUsage>
+      <code><![CDATA[$row = &$result->$model]]></code>
+    </UnsupportedReferenceUsage>
+  </file>
+</files>
