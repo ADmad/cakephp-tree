@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace ADmad\Tree\View\Helper;
 
 use Cake\Core\Configure;
+use Cake\Datasource\QueryInterface;
+use Cake\Datasource\ResultSetInterface;
 use Cake\View\Helper;
 use Exception;
 
@@ -26,9 +28,9 @@ class TreeHelper extends Helper
     /**
      * Default settings
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'model' => null,
         'alias' => 'name',
         'type' => 'ul',
@@ -54,32 +56,25 @@ class TreeHelper extends Helper
     ];
 
     /**
-     * Config settings property
-     *
-     * @var array
-     */
-    protected $_config = [];
-
-    /**
      * TypeAttributes property
      *
      * @var array
      */
-    protected $_typeAttributes = [];
+    protected array $_typeAttributes = [];
 
     /**
      * TypeAttributesNext property
      *
      * @var array
      */
-    protected $_typeAttributesNext = [];
+    protected array $_typeAttributesNext = [];
 
     /**
      * ItemAttributes property
      *
      * @var array
      */
-    protected $_itemAttributes = [];
+    protected array $_itemAttributes = [];
 
     /**
      * Tree generation method.
@@ -113,14 +108,14 @@ class TreeHelper extends Helper
      *    'splitCount' => the number of "parallel" types. defaults to null (disabled) set the splitCount,
      *        and optionally set the splitDepth to get parallel lists
      *
-     * @param array|\Cake\Datasource\QueryInterface|\Cake\ORM\ResultSet $data Data to loop over
+     * @param \Cake\Datasource\QueryInterface|\Cake\Datasource\ResultSetInterface|array $data Data to loop over
      * @param array $config Config
      * @return string HTML representation of the passed data
      * @throws \Exception
      */
-    public function generate($data, array $config = []): string
+    public function generate(QueryInterface|ResultSetInterface|array $data, array $config = []): string
     {
-        if (is_object($data)) {
+        if (!is_array($data)) {
             $data = $data->toArray();
         }
         if (empty($data)) {
@@ -359,7 +354,7 @@ class TreeHelper extends Helper
      * @param mixed $value Value
      * @return void
      */
-    public function addItemAttribute(string $id = '', string $key = '', $value = null): void
+    public function addItemAttribute(string $id = '', string $key = '', mixed $value = null): void
     {
         if ($value !== null) {
             $this->_itemAttributes[$id][$key] = $value;
@@ -399,7 +394,7 @@ class TreeHelper extends Helper
     public function addTypeAttribute(
         string $id = '',
         string $key = '',
-        $value = null,
+        mixed $value = null,
         string $previousOrNext = 'next'
     ): void {
         $var = '_typeAttributes';
@@ -539,7 +534,7 @@ class TreeHelper extends Helper
     {
         extract($this->_config);
         $siblingIsActive = false;
-        foreach ($tree as $key => &$subTree) {
+        foreach ($tree as &$subTree) {
             if (is_object($subTree)) {
                 $subTree = $subTree->toArray();
             }
@@ -560,7 +555,7 @@ class TreeHelper extends Helper
                 $siblingIsActive = true;
             }
         }
-        foreach ($tree as $key => &$subTree) {
+        foreach ($tree as &$subTree) {
             if ($level && !$siblingIsActive && !isset($subTree['parent_show'])) {
                 $subTree['hide'] = 1;
             }

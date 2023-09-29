@@ -1,0 +1,126 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method object\\:\\:toArray\\(\\)\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$alias might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$autoPath might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$callback might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$class might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$depth might not be defined\\.$#"
+			count: 3
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$element might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$hideUnrelated might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$id might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$indent might not be defined\\.$#"
+			count: 8
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$indentWith might not be defined\\.$#"
+			count: 8
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$itemType might not be defined\\.$#"
+			count: 4
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$lastChild might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$left might not be defined\\.$#"
+			count: 7
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$maxDepth might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$model might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$numberOfDirectChildren might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$numberOfTotalChildren might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$right might not be defined\\.$#"
+			count: 8
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$splitCount might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$splitDepth might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$totalNodes might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$treePath might not be defined\\.$#"
+			count: 2
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$type might not be defined\\.$#"
+			count: 6
+			path: src/View/Helper/TreeHelper.php
+
+		-
+			message: "#^Variable \\$whiteSpace might not be defined\\.$#"
+			count: 1
+			path: src/View/Helper/TreeHelper.php
