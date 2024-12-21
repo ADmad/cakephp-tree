@@ -1,6 +1,6 @@
 # Tree
 
-[![Build Status](https://img.shields.io/travis/ADmad/cakephp-tree/master.svg?style=flat-square)](https://travis-ci.org/ADmad/cakephp-tree)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/ADmad/cakephp-tree/ci.yml?branch=master&style=flat-square)](https://github.com/ADmad/cakephp-tree/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Coverage](https://img.shields.io/codecov/c/github/ADmad/cakephp-tree.svg?style=flat-square)](https://codecov.io/github/ADmad/cakephp-tree)
 [![Total Downloads](https://img.shields.io/packagist/dt/ADmad/cakephp-tree.svg?style=flat-square)](https://packagist.org/packages/ADmad/cakephp-tree)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
