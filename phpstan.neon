@@ -2,11 +2,12 @@ includes:
 	- phpstan-baseline.neon
 
 parameters:
-	level: 7
-	checkMissingIterableValueType: false
-	checkGenericClassInNonGenericObjectType: false
+	level: 8
 	treatPhpDocTypesAsCertain: false
 	bootstrapFiles:
 		- tests/bootstrap.php
 	paths:
 		- src
+	ignoreErrors:
+		- identifier: missingType.iterableValue
+		- identifier: missingType.generics
