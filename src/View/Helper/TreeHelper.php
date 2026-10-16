@@ -22,6 +22,7 @@ use Exception;
  *
  * @author Andy Dawson
  * @author Mark Scherer
+ * @extends \Cake\View\Helper<\Cake\View\View>
  */
 class TreeHelper extends Helper
 {
@@ -30,7 +31,7 @@ class TreeHelper extends Helper
      *
      * @var array<string, mixed>
      */
-    protected array $_defaultConfig = [
+    protected array $defaultConfig = [
         'model' => null,
         'alias' => 'name',
         'type' => 'ul',
@@ -60,21 +61,21 @@ class TreeHelper extends Helper
      *
      * @var array
      */
-    protected array $_typeAttributes = [];
+    protected array $typeAttributes = [];
 
     /**
      * TypeAttributesNext property
      *
      * @var array
      */
-    protected array $_typeAttributesNext = [];
+    protected array $typeAttributesNext = [];
 
     /**
      * ItemAttributes property
      *
      * @var array
      */
-    protected array $_itemAttributes = [];
+    protected array $itemAttributes = [];
 
     /**
      * Tree generation method.
@@ -122,16 +123,16 @@ class TreeHelper extends Helper
             return '';
         }
 
-        $this->_config = $config + $this->_defaultConfig;
-        if ($this->_config['autoPath'] && !isset($this->_config['autoPath'][2])) {
-            $this->_config['autoPath'][2] = 'active';
+        $this->config = $config + $this->defaultConfig;
+        if ($this->config['autoPath'] && !isset($this->config['autoPath'][2])) {
+            $this->config['autoPath'][2] = 'active';
         }
-        extract($this->_config);
+        extract($this->config);
         if ($indent === null && Configure::read('debug')) {
             $indent = true;
         }
 
-        $this->_itemAttributes = $this->_typeAttributes = $this->_typeAttributesNext = [];
+        $this->itemAttributes = $this->typeAttributes = $this->typeAttributesNext = [];
         $stack = [];
         if ($depth === 0) {
             if ($class) {
@@ -143,11 +144,11 @@ class TreeHelper extends Helper
         }
         $return = '';
         $addType = true;
-        $this->_config['totalNodes'] = count($data);
+        $this->config['totalNodes'] = count($data);
         $keys = array_keys($data);
 
         if ($hideUnrelated === true || is_numeric($hideUnrelated)) {
-            $this->_markUnrelatedAsHidden($data, $treePath);
+            $this->markUnrelatedAsHidden($data, $treePath);
         } elseif ($hideUnrelated && is_callable($hideUnrelated)) {
             /** @psalm-suppress PossiblyUndefinedVariable */
             call_user_func($hideUnrelated, $data, $treePath);
@@ -167,8 +168,8 @@ class TreeHelper extends Helper
             }
 
             /* Close open items as appropriate */
-            // @codingStandardsIgnoreStart
-            while ($stack && ($stack[count($stack)-1] < $row[$right])) {
+            // phpcs:ignore Squiz.PHP.DisallowSizeFunctionsInLoops.Found
+            while ($stack && ($stack[count($stack) - 1] < $row[$right])) {
                 // @codingStandardsIgnoreEnd
                 array_pop($stack);
                 if ($indent) {
@@ -229,7 +230,7 @@ class TreeHelper extends Helper
                 }
             }
 
-            $depth = $depth ? $depth : count($stack);
+            $depth = $depth ?: count($stack);
 
             $elementData = [
                 'data' => $result,
@@ -248,15 +249,15 @@ class TreeHelper extends Helper
                 $result['children'] = [];
             }
 
-            $this->_config = $elementData + $this->_config;
+            $this->config = $elementData + $this->config;
             /** @psalm-suppress InvalidArrayOffset */
-            if ($this->_config['fullSettings']) {
-                $elementData = $this->_config;
+            if ($this->config['fullSettings']) {
+                $elementData = $this->config;
             }
 
             /* Main Content */
             if ($element) {
-                $content = $this->_View->element($element, $elementData);
+                $content = $this->View->element($element, $elementData);
             } elseif ($callback) {
                 [$content] = array_map($callback, [$elementData]);
             } else {
@@ -276,7 +277,7 @@ class TreeHelper extends Helper
                     $return .= "\r\n" . $whiteSpace;
                 }
                 if ($type) {
-                    $typeAttributes = $this->_attributes($type, ['data' => $elementData]);
+                    $typeAttributes = $this->attributes($type, ['data' => $elementData]);
                     $return .= '<' . $type . $typeAttributes . '>';
                 }
             }
@@ -284,7 +285,7 @@ class TreeHelper extends Helper
                 $return .= "\r\n" . $whiteSpace . $indentWith;
             }
             if ($itemType) {
-                $itemAttributes = $this->_attributes($itemType, $elementData);
+                $itemAttributes = $this->attributes($itemType, $elementData);
                 $return .= '<' . $itemType . $itemAttributes . '>';
             }
             $return .= $content;
@@ -293,7 +294,7 @@ class TreeHelper extends Helper
             if ($hasVisibleChildren) {
                 if ($numberOfDirectChildren) {
                     $config['depth'] = $depth + 1;
-                    $return .= $this->_suffix();
+                    $return .= $this->suffix();
                     $return .= $this->generate($result['children'], $config);
                     if ($itemType) {
                         if ($indent) {
@@ -309,7 +310,7 @@ class TreeHelper extends Helper
                 if ($itemType) {
                     $return .= '</' . $itemType . '>';
                 }
-                $return .= $this->_suffix();
+                $return .= $this->suffix();
             }
         }
         /* Cleanup */
@@ -357,9 +358,9 @@ class TreeHelper extends Helper
     public function addItemAttribute(string $id = '', string $key = '', mixed $value = null): void
     {
         if ($value !== null) {
-            $this->_itemAttributes[$id][$key] = $value;
-        } elseif (!(isset($this->_itemAttributes[$id]) && in_array($key, $this->_itemAttributes[$id]))) {
-            $this->_itemAttributes[$id][] = $key;
+            $this->itemAttributes[$id][$key] = $value;
+        } elseif (!(isset($this->itemAttributes[$id]) && in_array($key, $this->itemAttributes[$id]))) {
+            $this->itemAttributes[$id][] = $key;
         }
     }
 
@@ -395,12 +396,12 @@ class TreeHelper extends Helper
         string $id = '',
         string $key = '',
         mixed $value = null,
-        string $previousOrNext = 'next'
+        string $previousOrNext = 'next',
     ): void {
-        $var = '_typeAttributes';
-        $firstChild = $this->_config['firstChild'] ?? true;
+        $var = 'typeAttributes';
+        $firstChild = $this->config['firstChild'] ?? true;
         if ($previousOrNext === 'next' && $firstChild) {
-            $var = '_typeAttributesNext';
+            $var = 'typeAttributesNext';
         }
         if ($value !== null) {
             $this->{$var}[$id][$key] = $value;
@@ -417,38 +418,38 @@ class TreeHelper extends Helper
      * @param bool $reset Reset
      * @return string
      */
-    protected function _suffix(bool $reset = false): string
+    protected function suffix(bool $reset = false): string
     {
-        static $_splitCount = 0;
-        static $_splitCounter = 0;
+        static $splitCount = 0;
+        static $splitCounter = 0;
 
         if ($reset) {
-            $_splitCount = 0;
-            $_splitCounter = 0;
+            $splitCount = 0;
+            $splitCounter = 0;
         }
-        extract($this->_config);
+        extract($this->config);
         if ($splitDepth || $splitCount) {
             if (!$splitDepth) {
-                $_splitCount = $totalNodes / $splitCount;
-                $rounded = (int)$_splitCount;
-                if ($rounded < $_splitCount) {
-                    $_splitCount = $rounded + 1;
+                $splitCount = $totalNodes / $splitCount;
+                $rounded = (int)$splitCount;
+                if ($rounded < $splitCount) {
+                    $splitCount = $rounded + 1;
                 }
             } elseif ($depth == $splitDepth - 1) {
-                $total = $numberOfDirectChildren ? $numberOfDirectChildren : $numberOfTotalChildren;
+                $total = $numberOfDirectChildren ?: $numberOfTotalChildren;
                 if ($total) {
-                    $_splitCounter = 0;
-                    $_splitCount = $total / $splitCount;
-                    $rounded = (int)$_splitCount;
-                    if ($rounded < $_splitCount) {
-                        $_splitCount = $rounded + 1;
+                    $splitCounter = 0;
+                    $splitCount = $total / $splitCount;
+                    $rounded = (int)$splitCount;
+                    if ($rounded < $splitCount) {
+                        $splitCount = $rounded + 1;
                     }
                 }
             }
             if (!$splitDepth || $depth == $splitDepth) {
-                $_splitCounter++;
-                if ($type && ($_splitCounter % $_splitCount) === 0 && !$lastChild) {
-                    unset($this->_config['callback']);
+                $splitCounter++;
+                if ($type && ($splitCounter % $splitCount) === 0 && !$lastChild) {
+                    unset($this->config['callback']);
 
                     return '</' . $type . '><' . $type . '>';
                 }
@@ -468,20 +469,20 @@ class TreeHelper extends Helper
      * @param bool $clear Clear
      * @return string
      */
-    protected function _attributes(string $rType, array $elementData = [], bool $clear = true): string
+    protected function attributes(string $rType, array $elementData = [], bool $clear = true): string
     {
-        extract($this->_config);
+        extract($this->config);
         if ($rType === $type) {
-            $attributes = $this->_typeAttributes;
+            $attributes = $this->typeAttributes;
             if ($clear) {
-                $this->_typeAttributes = $this->_typeAttributesNext;
-                $this->_typeAttributesNext = [];
+                $this->typeAttributes = $this->typeAttributesNext;
+                $this->typeAttributesNext = [];
             }
         } else {
-            $attributes = $this->_itemAttributes;
-            $this->_itemAttributes = [];
+            $attributes = $this->itemAttributes;
+            $this->itemAttributes = [];
             if ($clear) {
-                $this->_itemAttributes = [];
+                $this->itemAttributes = [];
             }
         }
         if ($rType === $itemType && $elementData['activePathElement']) {
@@ -530,9 +531,9 @@ class TreeHelper extends Helper
      * @return void
      * @throws \Exception
      */
-    protected function _markUnrelatedAsHidden(array &$tree, array $path, int $level = 0): void
+    protected function markUnrelatedAsHidden(array &$tree, array $path, int $level = 0): void
     {
-        extract($this->_config);
+        extract($this->config);
         $siblingIsActive = false;
         foreach ($tree as &$subTree) {
             if (is_object($subTree)) {
@@ -559,7 +560,7 @@ class TreeHelper extends Helper
             if ($level && !$siblingIsActive && !isset($subTree['parent_show'])) {
                 $subTree['hide'] = 1;
             }
-            $this->_markUnrelatedAsHidden($subTree['children'], $path, $level + 1);
+            $this->markUnrelatedAsHidden($subTree['children'], $path, $level + 1);
         }
     }
 }

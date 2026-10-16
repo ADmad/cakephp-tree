@@ -82,7 +82,7 @@ class TreeHelperTest extends TestCase
         parent::tearDown();
     }
 
-    public function testObject()
+    public function testObject(): void
     {
         $this->assertInstanceOf(TreeHelper::class, $this->Tree);
     }
@@ -92,7 +92,7 @@ class TreeHelperTest extends TestCase
      *
      * @return void
      */
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $tree = $this->Table->find('threaded')->toArray();
 
@@ -185,7 +185,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGenerateWithDepth()
+    public function testGenerateWithDepth(): void
     {
         $tree = $this->Table->find('threaded')->toArray();
 
@@ -228,7 +228,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGenerateWithSettings()
+    public function testGenerateWithSettings(): void
     {
         $tree = $this->Table->find('threaded')->toArray();
 
@@ -310,7 +310,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGenerateWithAutoPath()
+    public function testGenerateWithAutoPath(): void
     {
         $tree = $this->Table->find('threaded')->toArray();
 
@@ -396,7 +396,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGenerateWithAutoPathAndHideUnrelated()
+    public function testGenerateWithAutoPathAndHideUnrelated(): void
     {
         $data = [
             ['name' => 'Two-SubB', 'parent_id' => 2],
@@ -499,19 +499,19 @@ TEXT;
         $this->assertTextEquals($expected, $output);
     }
 
-    public function myCallback($data)
+    public function myCallback($data): ?string
     {
         if (!empty($data['data']['hide'])) {
-            return;
+            return null;
         }
 
         return $data['data']['name'] . ($data['activePathElement'] ? ' (active)' : '');
     }
 
-    public function myCallbackSiblings($data)
+    public function myCallbackSiblings($data): ?string
     {
         if (!empty($data['data']['hide'])) {
-            return;
+            return null;
         }
         if ($data['depth'] == 0 && $data['isSibling']) {
             return $data['data']['name'] . ' (sibling)';
@@ -525,7 +525,7 @@ TEXT;
      *
      * @return void
      */
-    public function testGenerateProductive()
+    public function testGenerateProductive(): void
     {
         $tree = $this->Table->find('threaded')->toArray();
 

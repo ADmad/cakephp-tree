@@ -17,5 +17,7 @@
 
     <issueHandlers>
         <RiskyTruthyFalsyComparison errorLevel="suppress"/>
+        <MissingPureAnnotation errorLevel="suppress"/>
+        <ClassMustBeFinal errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
